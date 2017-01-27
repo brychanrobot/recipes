@@ -22,7 +22,7 @@ class RecipeListItem extends Component {
 		return (
 			<ListItem
 				primaryText={this.props.recipe.name}
-				leftAvatar={<Avatar src={this.props.recipe.image || defaultChef} />}
+				leftAvatar={<Avatar src={defaultChef} />}
 				onTouchTap={this.handleTouchTap}
 			/>
 		)

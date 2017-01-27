@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, IndexRoute, Route, Link, browserHistory } from 'react-router'
+import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 import { yellow600 } from 'material-ui/styles/colors'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
