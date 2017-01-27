@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppBar title="Recipes" iconStyleRight={{width: '70%'}} iconElementRight={
+        <AppBar title="Recipes" style={{position: 'fixed'}} iconStyleRight={{width: '70%'}} iconElementRight={
           <AutoComplete
             hintText='Search'
             filter={AutoComplete.fuzzyFilter}
@@ -35,7 +35,6 @@ class App extends Component {
             onNewRequest={this.handleSearchSubmission}
             fullWidth={true}
             underlineShow={false}
-            hint
             style={{textColor: 'light-grey', background: yellow700}}
             inputStyle={{color: 'gray'}}
             textFieldStyle={{padding: '0 1em', color: 'gray'}} />}
@@ -51,7 +50,9 @@ class App extends Component {
           }}
           maxSearchResults={7}
           onNewRequest={obj => console.log(obj)} />*/}
+        <div style={{paddingTop: '64px'}}>
           {this.props.children}
+        </div>
       </div>
     )
   }
