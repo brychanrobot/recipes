@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
+
 import { yellow700 } from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar'
-import { browserHistory } from 'react-router'
 import AutoComplete from 'material-ui/AutoComplete'
 
 class App extends Component {
@@ -11,22 +13,21 @@ class App extends Component {
     this.handleSearchSubmission = this.handleSearchSubmission.bind(this)
   }
   
-
   handleSearchSubmission(recipe) {
 		browserHistory.push({
-			pathname: '/recipe',
-			state: { recipe }
+			pathname: '/recipe/' + recipe.uuid
 		})
 	}
 
   render() {
+    //console.log(this.props.params)
     return (
-      <div>
-        <AppBar title='Recipes' style={{position: 'fixed', top: '0'}} iconStyleRight={{width: '70%'}} iconElementRight={
+      <div style={{height: window.innerHeight}}>
+        <AppBar title='Recipes' iconStyleRight={{width: '60%'}} iconElementRight={
           <AutoComplete
             hintText='Search'
             filter={AutoComplete.fuzzyFilter}
-            dataSource={ this.props.route.recipes }
+            dataSource={ this.props.recipes }
             dataSourceConfig={{
               text: 'name',
               value: 'uuid'
@@ -40,17 +41,7 @@ class App extends Component {
             textFieldStyle={{padding: '0 1em', color: 'gray'}} />}
         />
 
-        {/*<AutoComplete
-          floatingLabelText="search"
-          filter={AutoComplete.fuzzyFilter}
-          dataSource={ this.props.route.recipes }
-          dataSourceConfig={{
-            text: 'name',
-            value: 'uuid'
-          }}
-          maxSearchResults={7}
-          onNewRequest={obj => console.log(obj)} />*/}
-        <div style={{marginTop: '64px', padding: '0.5em'}}>
+        <div style={{padding: '0.5em', height: window.innerHeight - 64, overflow: 'auto'}}>
           {this.props.children}
         </div>
       </div>
@@ -58,10 +49,8 @@ class App extends Component {
   }
 }
 
-/*
 App.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired
 }
-*/
 
-export default App
+export default connect(store => store)(App)

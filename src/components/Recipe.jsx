@@ -1,23 +1,60 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
+
 import Fraction from 'fraction.js'
 import parseIngredient from '../utils/ingredientParser'
-//import IParser from 'ingredientparser'
-//import Checkbox from 'material-ui/Checkbox'
+
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import FontIcon from 'material-ui/FontIcon'
 import Paper from 'material-ui/Paper'
 import Ingredient from './Ingredient'
+import ScaleDialog from './ScaleDialog'
 //import defaultChef from '../resources/defaultChef.png'
 
 class Recipe extends Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			scale: Fraction(1),
+			scaleDialogOpen: false
+		}
+
+		this.handleScaleChange = this.handleScaleChange.bind(this)
+		this.handleScaleTouchTap = this.handleScaleTouchTap.bind(this)
+	}
+
+	handleScaleChange(newScale) {
+		console.log(newScale)
+		this.setState({
+			scale: newScale,
+			scaleDialogOpen: false
+		})
+	}
+
+	handleScaleTouchTap(evt) {
+		this.setState({
+			scaleDialogOpen: true
+		})
+	}
+	
 	render () {
-		const ingredientList = this.props.location.state.recipe.properties.ingredientsText.split(/\s*\n\s*/)
+		const ingredientList = this.props.recipe.ingredientsText.split(/\s*\n\s*/)
 						.filter(ingredient => ingredient && ingredient.length > 0)
 						.map((ingredient, index) => 
-							<Ingredient ingredient={parseIngredient(ingredient)} scale={Fraction(1)} key={index} />
+							<Ingredient ingredient={parseIngredient(ingredient)} scale={this.state.scale} key={index} />
 						)
-		//console.log(this.props.location.state.recipe.properties.preparationText)
+		
+		const instructionList = this.props.recipe.preparationText.split(/\s*\n\s*/)
+						.filter(instruction => instruction && instruction.length > 0)
+						.map((instruction, index) => 
+							<li key={index}>
+								{instruction.replace(/(\d+.\s*)/, "")}
+							</li>
+						)
+		
 		return (
-			<div>
-				<h2>{this.props.location.state.recipe.name}</h2>
+			<div style={{position: 'relative'}}>
+				<h2>{this.props.recipe.name}</h2>
 				<div>
 					<h3>Ingredients:</h3>
 					{ingredientList}
@@ -25,15 +62,20 @@ class Recipe extends Component {
 				<Paper style={{background: "#FFFFE0", padding: "1.5em", marginTop: "1em"}} zDepth={2}>
 					<h3 style={{marginTop: "0"}}>Instructions:</h3>
 					<ol>
-						{this.props.location.state.recipe.properties.preparationText.split('\n')
-							.filter(instruction => instruction && instruction.length > 0)
-							.map(instruction =>
-							<li key={instruction}>
-								{instruction.replace(/(\d+.\s*)/, "")}
-							</li>
-						)}
+						{instructionList}
 					</ol>
 				</Paper>
+
+				<ScaleDialog
+					open={this.state.scaleDialogOpen}
+					scale={this.state.scale}
+					onClose={this.handleScaleChange}
+				/>
+
+				<FloatingActionButton style={{position: 'absolute', top: '0', right: '1em'}}
+					onTouchTap={this.handleScaleTouchTap}>
+					<FontIcon style={{fontSize: '1em'}}>{this.state.scale.toFraction(true)}</FontIcon>
+				</FloatingActionButton>
 			</div>
 		)
 	}
@@ -43,4 +85,7 @@ class Recipe extends Component {
 
 }*/
 
-export default Recipe
+export default connect((state, ownProps) => {
+	let recipe = state.recipes.filter(recipe => recipe.uuid === ownProps.params.id)[0]
+	return { recipe }
+})(Recipe)

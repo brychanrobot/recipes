@@ -30,16 +30,44 @@ const units = {
 
 const unitLookup = {}
 for (let k in units) {
-	unitLookup[k] = k;
-	for (let abbreviation of units[k]) {
-		unitLookup[abbreviation] = k;
+	if (units.hasOwnProperty(k)) {
+		unitLookup[k] = k;
+		for (let abbreviation of units[k]) {
+			unitLookup[abbreviation] = k;
+		}
 	}
+}
+
+export function toPrettyString(ingredient, scale) {
+	if (!ingredient instanceof Object) {
+		return 'invalid ingredient : not an object'
+	}
+	if (!scale instanceof Fraction) {
+		return 'invalid scale : not instance of fraction'
+	}
+
+	let amount = '' //this.props.scale.mul(this.props.ingredient.amount)
+	let pluralizer = ''
+	if(ingredient.amount && ingredient.amount.min !== 0) {
+		amount += scale.mul(ingredient.amount.min).toFraction(true)
+		if (ingredient.amount.max) {
+			amount += ' to ' + scale.mul(ingredient.amount.max).toFraction(true)
+		}
+
+		pluralizer = ingredient.amount.min > 1 || ingredient.amount.max > 1 ? 's' : ''
+	}
+
+	let prettyString = amount
+	prettyString += ingredient.unit ? ' ' + ingredient.unit + pluralizer : ''
+	prettyString += ' ' + ingredient.name
+
+	return prettyString
 }
 
 const ingredientParser = ingredientString => {
 	let ingredient = {}
 
-	let words = ingredientString.trim().replace('.','').split(/\s+/)
+	let words = ingredientString.trim().split(/\s+/)
 
 	let min = true
 	let max = false
@@ -50,7 +78,7 @@ const ingredientParser = ingredientString => {
 		if (min) {
 			if (word.match(/^\d/)) {
 				ingredient.amount = ingredient.amount || {}
-				ingredient.amount.min = (ingredient.amount.min || 0) + Fraction(word)
+				ingredient.amount.min = (ingredient.amount.min || 0) + Fraction(word.replace('-', ' '))
 			} else if (amountConnectors.includes(word.toLowerCase())) {
 				min = false
 				max = true
@@ -64,7 +92,7 @@ const ingredientParser = ingredientString => {
 		if (max) {
 			if (word.match(/^\d/)) {
 				ingredient.amount = ingredient.amount || {}
-				ingredient.amount.max = (ingredient.amount.max || 0) + Fraction(word)
+				ingredient.amount.max = (ingredient.amount.max || 0) + Fraction(word.replace('-', ' '))
 			} else {
 				max = false
 				unit = true
@@ -72,16 +100,19 @@ const ingredientParser = ingredientString => {
 		}
 
 		if (unit) {
+			unit = false
+			name = true
+
 			let testWord = word.replace(/s\b/, '') //remove s from end of word (getting rid of plural)
+			testWord = testWord.replace(/\./g, '') //remove decimals (because people have to let us know they're abbreviating)
 			if (testWord !== 't' && testWord !== 'T') {
 				testWord = testWord.toLowerCase()
 			}
+
 			if (testWord in unitLookup) {
 				ingredient.unit = unitLookup[testWord]
-			} else {
-				unit = false
-				name = true
-			}
+				continue
+			}			
 		}
 
 		if (name) {

@@ -11,9 +11,9 @@ class RecipeListItem extends Component {
 	}
 
 	handleTouchTap(evt) {
+		evt.preventDefault()
 		browserHistory.push({
-			pathname: '/recipe',
-			state: { recipe: this.props.recipe }
+			pathname: '/recipe/' + this.props.recipe.uuid
 		})
 	}
 	
