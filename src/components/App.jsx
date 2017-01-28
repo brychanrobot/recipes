@@ -41,7 +41,7 @@ class App extends Component {
             textFieldStyle={{padding: '0 1em', color: 'gray'}} />}
         />
 
-        <div style={{padding: '0.5em', height: window.innerHeight - 64, overflow: 'auto'}}>
+        <div style={{padding: '0.5em', height: window.innerHeight - 64, overflowY: 'auto', overflowX: 'hidden'}}>
           {this.props.children}
         </div>
       </div>

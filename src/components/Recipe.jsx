@@ -72,7 +72,7 @@ class Recipe extends Component {
 					onClose={this.handleScaleChange}
 				/>
 
-				<FloatingActionButton style={{position: 'absolute', top: '0', right: '1em'}}
+				<FloatingActionButton style={{position: 'fixed', top: '5em', right: '1em'}}
 					onTouchTap={this.handleScaleTouchTap}>
 					<FontIcon style={{fontSize: '1em'}}>{this.state.scale.toFraction(true)}</FontIcon>
 				</FloatingActionButton>
