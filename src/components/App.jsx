@@ -23,7 +23,7 @@ class App extends Component {
     //console.log(this.props.params)
     return (
       <div style={{height: window.innerHeight}}>
-        <AppBar title='Recipes' iconStyleRight={{width: '60%'}} iconElementRight={
+        <AppBar title='Recipes' iconElementLeft={<div></div>} iconStyleRight={{width: '80%'}} iconElementRight={
           <AutoComplete
             hintText='Search'
             filter={AutoComplete.fuzzyFilter}
