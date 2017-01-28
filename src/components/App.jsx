@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppBar title="Recipes" style={{position: 'fixed', top: '0'}} iconStyleRight={{width: '70%'}} iconElementRight={
+        <AppBar title='Recipes' style={{position: 'fixed', top: '0'}} iconStyleRight={{width: '70%'}} iconElementRight={
           <AutoComplete
             hintText='Search'
             filter={AutoComplete.fuzzyFilter}
@@ -50,7 +50,7 @@ class App extends Component {
           }}
           maxSearchResults={7}
           onNewRequest={obj => console.log(obj)} />*/}
-        <div style={{marginTop: '64px'}}>
+        <div style={{marginTop: '64px', padding: '0.5em'}}>
           {this.props.children}
         </div>
       </div>

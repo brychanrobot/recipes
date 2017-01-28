@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Fraction from 'fraction.js'
-import IParser from 'ingredientparser'
+import parseIngredient from '../utils/ingredientParser'
+//import IParser from 'ingredientparser'
 //import Checkbox from 'material-ui/Checkbox'
 import Paper from 'material-ui/Paper'
 import Ingredient from './Ingredient'
@@ -8,18 +9,18 @@ import Ingredient from './Ingredient'
 
 class Recipe extends Component {
 	render () {
-		//console.log(this.props.location.state.recipe.properties.ingredientsText.split('\n'))
+		const ingredientList = this.props.location.state.recipe.properties.ingredientsText.split(/\s*\n\s*/)
+						.filter(ingredient => ingredient && ingredient.length > 0)
+						.map((ingredient, index) => 
+							<Ingredient ingredient={parseIngredient(ingredient)} scale={Fraction(1)} key={index} />
+						)
 		//console.log(this.props.location.state.recipe.properties.preparationText)
 		return (
 			<div>
 				<h2>{this.props.location.state.recipe.name}</h2>
 				<div>
 					<h3>Ingredients:</h3>
-					{this.props.location.state.recipe.properties.ingredientsText.split('\n')
-						.filter(ingredient => ingredient && ingredient.length > 0)
-						.map(ingredient =>
-						<Ingredient ingredient={IParser.parse(ingredient)} scale={new Fraction('2/2')} key={ingredient} />
-					)}
+					{ingredientList}
 				</div>
 				<Paper style={{background: "#FFFFE0", padding: "1.5em", marginTop: "1em"}} zDepth={2}>
 					<h3 style={{marginTop: "0"}}>Instructions:</h3>
