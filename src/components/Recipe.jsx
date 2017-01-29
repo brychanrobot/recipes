@@ -54,6 +54,11 @@ class Recipe extends Component {
 		
 		return (
 			<div style={{position: 'relative'}}>
+				<FloatingActionButton style={{position: 'fixed', top: '5em', right: '1em'}}
+					onTouchTap={this.handleScaleTouchTap}>
+					<FontIcon style={{fontSize: '1em'}}>{this.state.scale.toFraction(true)}</FontIcon>
+				</FloatingActionButton>
+
 				<h2>{this.props.recipe.name}</h2>
 				<div>
 					<h3>Ingredients:</h3>
@@ -71,11 +76,6 @@ class Recipe extends Component {
 					scale={this.state.scale}
 					onClose={this.handleScaleChange}
 				/>
-
-				<FloatingActionButton style={{position: 'fixed', top: '5em', right: '1em'}}
-					onTouchTap={this.handleScaleTouchTap}>
-					<FontIcon style={{fontSize: '1em'}}>{this.state.scale.toFraction(true)}</FontIcon>
-				</FloatingActionButton>
 			</div>
 		)
 	}
