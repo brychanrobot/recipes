@@ -36,12 +36,23 @@ class Recipe extends Component {
 			scaleDialogOpen: true
 		})
 	}
+
+	componentWillReceiveProps (nextProps) {
+		this.setState({
+			scale: Fraction(1) //reset scale for new recipe
+		})
+	}
+		
 	
 	render () {
 		const ingredientList = this.props.recipe.ingredientsText.split(/\s*\n\s*/)
 						.filter(ingredient => ingredient && ingredient.length > 0)
 						.map((ingredient, index) => 
-							<Ingredient ingredient={parseIngredient(ingredient)} scale={this.state.scale} key={index} />
+							<Ingredient
+								ingredient={parseIngredient(ingredient)}
+								scale={this.state.scale}
+								key={index}
+							/>
 						)
 		
 		const instructionList = this.props.recipe.preparationText.split(/\s*\n\s*/)
@@ -56,7 +67,9 @@ class Recipe extends Component {
 			<div style={{position: 'relative'}}>
 				<FloatingActionButton style={{position: 'fixed', top: '5em', right: '1em'}}
 					onTouchTap={this.handleScaleTouchTap}>
-					<FontIcon style={{fontSize: '1em'}}>{this.state.scale.toFraction(true)}</FontIcon>
+					<FontIcon style={{fontSize: '1em', fontWeight: 'bold'}}>
+						{this.state.scale.toFraction(true)}
+					</FontIcon>
 				</FloatingActionButton>
 
 				<h2>{this.props.recipe.name}</h2>
