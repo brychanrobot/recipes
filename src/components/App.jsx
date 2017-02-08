@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     //console.log(this.props.params)
     return (
-      <div style={{height: window.innerHeight}}>
+      <div style={{height: '100vh'}}>
         <AppBar title='Recipes' iconElementLeft={<div></div>} iconStyleRight={{width: '80%'}} iconElementRight={
           <AutoComplete
             hintText='Search'
@@ -41,7 +41,7 @@ class App extends Component {
             textFieldStyle={{padding: '0 1em', color: 'gray'}} />}
         />
 
-        <div style={{padding: '0.5em', height: window.innerHeight - 64, overflowY: 'auto', overflowX: 'hidden'}}>
+        <div style={{height: "calc(100vh - 64px)"}}>
           {this.props.children}
         </div>
       </div>

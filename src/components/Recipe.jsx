@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 
 import Fraction from 'fraction.js'
@@ -41,6 +42,7 @@ class Recipe extends Component {
 		this.setState({
 			scale: Fraction(1) //reset scale for new recipe
 		})
+		ReactDOM.findDOMNode(this).scrollTop = 0
 	}
 		
 	
@@ -64,7 +66,7 @@ class Recipe extends Component {
 						)
 		
 		return (
-			<div style={{position: 'relative'}}>
+			<div style={{height: 'inherit', overflowY: 'auto'}}>
 				<FloatingActionButton style={{position: 'fixed', top: '5em', right: '1em'}}
 					onTouchTap={this.handleScaleTouchTap}>
 					<FontIcon style={{fontSize: '1em', fontWeight: 'bold'}}>

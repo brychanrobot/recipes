@@ -22,7 +22,7 @@ const Root = ({store}) => (
 		<MuiThemeProvider muiTheme={muiTheme}>
 			<Router history={browserHistory}>
 				<Route path="/" component={App}>
-					<IndexRoute component={RecipeList}/>
+					<IndexRoute component={RecipeList} />
 					<Route path="recipe/:id" component={Recipe} />
 				</Route>
 			</Router>

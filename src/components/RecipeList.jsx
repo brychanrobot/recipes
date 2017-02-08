@@ -10,7 +10,7 @@ class RecipeList extends Component {
 		)
 
 		return (
-			<List>
+			<List style={{height: 'inherit', overflowY: 'auto'}}>
 			{listItems}
 			</List>
 		)
