@@ -4,7 +4,7 @@ const noise = ['a', 'of']
 const amountConnectors = ['to', 'or']
 
 const units = {
-	tablespoon: ['T', 'tbs', 'tbsp'],
+	tablespoon: ['T', 'tbs', 'tbsp', 'tbl', 'tblsp'],
 	teaspoon: ['t', 'tsp'],
 	cup: ['c'],
 	pint: ['pt'],
