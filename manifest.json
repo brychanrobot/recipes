@@ -1,0 +1,6 @@
+{
+  "name": "Recipes",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
