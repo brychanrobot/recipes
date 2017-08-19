@@ -1,12 +1,14 @@
 {
   "name": "recipes",
   "version": "0.1.0",
+  "homepage": "https://recipe-alchemy.surge.sh",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.8.5"
   },
   "dependencies": {
     "fraction.js": "^3.3.1",
+    "gh-pages": "^1.0.0",
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0",
     "lodash": "^4.17.4",
@@ -21,6 +23,8 @@
     "redux-promise-middleware": "^4.2.0"
   },
   "scripts": {
+    "predeploy": "react-scripts build",
+    "deploy": "surge build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
