@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import { yellow700 } from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar'
 import AutoComplete from 'material-ui/AutoComplete'
+// import IconButton from 'material-ui/IconButton'
+// import SvgIcon from 'material-ui/SvgIcon'
+
+// import erlenmeyerSilhouette from '../resources/erlenmeyer-logo-silhouette.svg'
 
 class App extends Component {
   constructor (props) {
@@ -23,7 +27,7 @@ class App extends Component {
     //console.log(this.props.params)
     return (
       <div style={{height: '100vh'}}>
-        <AppBar title='Recipes' iconElementLeft={<div></div>} iconStyleRight={{width: '80%'}} iconElementRight={
+        <AppBar title='RA' iconStyleRight={{width: '100%'}} iconElementRight={
           <AutoComplete
             hintText='Search'
             filter={AutoComplete.fuzzyFilter}
@@ -39,6 +43,7 @@ class App extends Component {
             style={{textColor: 'light-grey', background: yellow700}}
             inputStyle={{color: 'gray'}}
             textFieldStyle={{padding: '0 1em', color: 'gray'}} />}
+            onLeftIconButtonTouchTap={console.log("stuff")}
         />
 
         <div style={{height: "calc(100vh - 64px)"}}>

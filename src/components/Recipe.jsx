@@ -62,12 +62,12 @@ class Recipe extends Component {
 						.filter(instruction => instruction && instruction.length > 0)
 						.map((instruction, index) => 
 							<li key={index}>
-								{instruction.replace(/(\d+.\s*)/, "")}
+								{instruction.replace(/((\\n)*\d+\.\s)/, "\n")}
 							</li>
 						)
 		
 		return (
-			<div style={{height: 'inherit', overflowY: 'auto'}}>
+			<div style={{height: 'inherit', overflowY: 'auto', padding: '1rem'}}>
 				<FloatingActionButton style={{position: 'fixed', top: '5em', right: '1em'}}
 					onTouchTap={this.handleScaleTouchTap}>
 					<FontIcon style={{fontSize: '1em', fontWeight: 'bold'}}>

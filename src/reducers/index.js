@@ -1,13 +1,12 @@
-import recipes from '../resources/recipes.json'
-import unescape from 'lodash/unescape'
+import recipes from '../resources/recipes_reduced.json'
 
 export default function reducer(state={
 	recipes: recipes.map(recipe => {
 		return {
-				uuid: recipe.uuid.replace(/\/UUID\(/, '').replace(/\)\//, ''),
+				uuid: recipe.uuid,
 				name: recipe.name,
-				ingredientsText: unescape(recipe.properties.ingredientsText).replace('&#13;', ''),
-				preparationText: unescape(recipe.properties.preparationText).replace(/&#(13)?;?/g, ''),
+				ingredientsText: recipe.ingredientsText,
+				preparationText: recipe.preparationText,
 			}
 	})
 }, action) {
