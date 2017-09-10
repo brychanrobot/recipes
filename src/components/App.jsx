@@ -16,8 +16,10 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    console.log(browserHistory)
+
     this.state = {
-      isInRecipe: browserHistory.location !== '/',
+      isInRecipe: browserHistory.location !== undefined && browserHistory.location !== '/',
       searchText: ''
     }
 
