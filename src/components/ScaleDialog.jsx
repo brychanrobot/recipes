@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component, PropTypes } from 'react'
 import Fraction from 'fraction.js'
 
 import Dialog from 'material-ui/Dialog'
@@ -7,7 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
 
 class ScaleDialog extends Component {
-	constructor (props) {
+	constructor(props) {
 		super(props)
 		let frac = this.props.scale.mod(1).abs().toFraction() //get fractional part
 		let whole = this.props.scale - frac //get whole part
@@ -20,7 +20,7 @@ class ScaleDialog extends Component {
 		this.handleWholeChange = this.handleWholeChange.bind(this)
 		this.handleFracChange = this.handleFracChange.bind(this)
 	}
-	
+
 	handleRequestClose(isConfirmed) {
 		this.props.onClose(isConfirmed ? Fraction(this.state.whole).add(this.state.frac) : this.props.scale)
 	}
@@ -39,7 +39,7 @@ class ScaleDialog extends Component {
 		})
 	}
 
-	render () {
+	render() {
 		const actions = [
 			<FlatButton
 				label="Submit"
@@ -47,7 +47,7 @@ class ScaleDialog extends Component {
 				keyboardFocused={false}
 				onTouchTap={this.handleRequestClose}
 			/>,
-		]	
+		]
 
 		return (
 			<Dialog open={this.props.open} onRequestClose={this.handleRequestClose} actions={actions}>
@@ -62,7 +62,7 @@ class ScaleDialog extends Component {
 					<MenuItem value={3} primaryText="3" />
 					<MenuItem value={4} primaryText="4" />
 				</SelectField>
-
+				<br />
 				<SelectField
 					floatingLabelText="Fraction"
 					value={this.state.frac}
