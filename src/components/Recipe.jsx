@@ -47,7 +47,7 @@ class Recipe extends Component {
 		
 	
 	render () {
-		console.log(this.props.recipe.ingredientsText)
+		// console.log(this.props.recipe.ingredientsText)
 		const ingredientList = this.props.recipe.ingredientsText.split(/\s*\n\s*/)
 						.filter(ingredient => ingredient && ingredient.length > 0)
 						.map((ingredient, index) => 
